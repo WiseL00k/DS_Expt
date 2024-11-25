@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "DSU.h"
 
 int main(void)
 {
