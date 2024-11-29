@@ -2,6 +2,7 @@
 #define __DSU_H__
 
 #include <stdlib.h>
+#include <stdio.h>
 
 /* 使用者可自行进行宏定义，以选择不同的并查集合并方式 */
 #ifdef USE_WUR_UNION
@@ -26,7 +27,7 @@ typedef struct // 并查集
 {
     int *parent;
     int n;
-} PForest, MFSet;
+} PForest, MFSet, *MFSetPtr;
 
 Status InitMFSet(MFSet *S, int n);             // 初始化并查集S
 Status DestroyMFSet(MFSet *S);                 // 销毁并查集S
@@ -37,5 +38,6 @@ Status UnionMFSet(MFSet *S, int i, int j);     // 合并并查集S中元素i和j
 Status UnionMFSet_WUR(MFSet *S, int i, int j); // 合并并查集S中元素i和j所属的两个集合，采用加权合并原则
 Status UnionMFSet_PC(MFSet *S, int i, int j);  // 合并并查集S中元素i和j所属的两个集合，同时压缩路径
 Status hasRelation(MFSet *S, int i, int j);    // 判断并查集S中元素i和j是否属于同一个集合
+Status displayMFSet(MFSet *S);                 // 可视化并查集S
 
 #endif /* __DSU_H__ */

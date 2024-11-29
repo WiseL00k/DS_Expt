@@ -4,6 +4,7 @@ Status InitMFSet(MFSet *S, int n)
 {
     int i;
     S->parent = (int *)malloc(sizeof(int) * n);
+    S->n = n;
     if (S->parent == NULL)
         return OVERFLOW;
     for (i = 0; i < n; ++i)
@@ -118,4 +119,24 @@ Status hasRelation(MFSet *S, int i, int j)
         return TRUE;
     else
         return FALSE;
+}
+
+Status displayMFSet(MFSet *S)
+{
+    if (S == NULL || S->parent == NULL)
+        return ERROR;
+        
+    printf("index:\t");
+    for (int i = 0; i < S->n; ++i)
+    {
+        printf("%d\t", i);
+    }
+    printf("\n");
+    printf("value:\t");
+    for (int i = 0; i < S->n; ++i)
+    {
+        printf("%d\t", S->parent[i]);
+    }
+    printf("\n");
+    return OK;
 }
