@@ -62,7 +62,7 @@ Status UnionMFSet_WUR(MFSet *S, int i, int j)
     int ri = FindMFSet(S, i);
     int rj = FindMFSet(S, j);
     if (ri == rj)
-        return FALSE;
+        return ERROR;
     if (S->parent[ri] > S->parent[rj]) // 因为是负数，所以rj是较矮的树
     {
         S->parent[rj] += S->parent[ri];
@@ -74,7 +74,7 @@ Status UnionMFSet_WUR(MFSet *S, int i, int j)
         S->parent[rj] = ri;
     }
 
-    return TRUE;
+    return OK;
 }
 
 Status UnionMFSet_PC(MFSet *S, int i, int j)
