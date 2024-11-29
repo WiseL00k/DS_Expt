@@ -15,10 +15,10 @@
 
 typedef enum
 {
+    ERROR = -1,
     FALSE,
     TRUE,
     OK,
-    ERROR,
     OVERFLOW,
 } Status; // 状态码
 

@@ -56,7 +56,7 @@ Status UnionMFSet(MFSet *S, int i, int j)
 Status UnionMFSet_WUR(MFSet *S, int i, int j)
 {
     if (i < 0 || i >= S->n || j < 0 || j >= S->n)
-        return FALSE; // 表示不存在元素i或j
+        return ERROR; // 表示不存在元素i或j
 
     // 查找i和j所在子树的根结点
     int ri = FindMFSet(S, i);
@@ -97,7 +97,7 @@ Status UnionMFSet_PC(MFSet *S, int i, int j)
 int FindPCMFSet_PC_ite(MFSet *S, int i)
 {
     if (i < 0 || i >= S->n)
-        return -1;
+        return ERROR;
     int parent = S->parent[i], temp;
     while (parent >= 0)
         parent = S->parent[i];
