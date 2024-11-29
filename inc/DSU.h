@@ -10,6 +10,7 @@
 
 #ifdef USE_PC_UNION
 #define UnionMFSet UnionMFSet_PC
+#define FindMFset FindPCMFSet_PC_ite
 #endif
 
 typedef enum
@@ -30,10 +31,11 @@ typedef struct // 并查集
 Status InitMFSet(MFSet *S, int n);             // 初始化并查集S
 Status DestroyMFSet(MFSet *S);                 // 销毁并查集S
 int FindMFset(MFSet *S, int i);                // 查找并查集S中元素i所属的集合
+int FindPCMFSet_PC_ite(MFSet *S, int i);       // 查找并查集S中元素i所属的集合，同时压缩路径
 Status DiffMFSet(MFSet *S, int i, int j);      // 判断并查集S中元素i和j是否属于同一个集合
 Status UnionMFSet(MFSet *S, int i, int j);     // 合并并查集S中元素i和j所属的两个集合
 Status UnionMFSet_WUR(MFSet *S, int i, int j); // 合并并查集S中元素i和j所属的两个集合，采用加权合并原则
 Status UnionMFSet_PC(MFSet *S, int i, int j);  // 合并并查集S中元素i和j所属的两个集合，同时压缩路径
-Status FindPCMFSet_PC_ite(MFSet *S, int i);    // 查找并查集S中元素i所属的集合，同时压缩路径
+Status hasRelation(MFSet *S, int i, int j);    // 判断并查集S中元素i和j是否属于同一个集合
 
 #endif /* __DSU_H__ */

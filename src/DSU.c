@@ -94,7 +94,7 @@ Status UnionMFSet_PC(MFSet *S, int i, int j)
     return OK;
 }
 
-Status FindPCMFSet_PC_ite(MFSet *S, int i)
+int FindPCMFSet_PC_ite(MFSet *S, int i)
 {
     if (i < 0 || i >= S->n)
         return -1;
@@ -108,4 +108,14 @@ Status FindPCMFSet_PC_ite(MFSet *S, int i)
         i = temp;
     }
     return parent;
+}
+
+Status hasRelation(MFSet *S, int i, int j)
+{
+    if (i < 0 || i >= S->n || j < 0 || j >= S->n)
+        return FALSE;
+    if (FindMFSet(S, i) == FindMFSet(S, j))
+        return TRUE;
+    else
+        return FALSE;
 }
