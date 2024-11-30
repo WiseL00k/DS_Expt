@@ -20,7 +20,7 @@ Status DestroyMFSet(MFSet *S)
     return OK;
 }
 
-int FindMFSet(MFSet *S, int i)
+int FindMFset_Default(MFSet *S, int i)
 {
     // 查找元素i在并查集S中所属的子集，返回集合代表
     if (i < 0 || i >= S->n)
@@ -36,7 +36,7 @@ Status DiffMFSet(MFSet *S, int i, int j)
     return FindMFSet(S, i) == FindMFSet(S, j);
 }
 
-Status UnionMFSet(MFSet *S, int i, int j)
+Status UnionMFSet_Default(MFSet *S, int i, int j)
 {
     // 合并并查集S中元素i和j所属的两个集合
     if (i < 0 || i >= S->n || j < 0 || j >= S->n)
@@ -99,10 +99,10 @@ int FindPCMFSet_PC_ite(MFSet *S, int i)
 {
     if (i < 0 || i >= S->n)
         return ERROR;
-    int parent = S->parent[i], temp;
-    while (parent >= 0)
-        parent = S->parent[i];
-    while (i >= 0)
+    int parent = i, temp = i;
+    while (S->parent[parent] >= 0)
+        parent = S->parent[parent];
+    while (S->parent[i] >= 0 && i >= 0)
     {
         temp = S->parent[i];
         S->parent[i] = parent;
@@ -125,7 +125,7 @@ Status displayMFSet(MFSet *S)
 {
     if (S == NULL || S->parent == NULL)
         return ERROR;
-        
+
     printf("index:\t");
     for (int i = 0; i < S->n; ++i)
     {
