@@ -25,13 +25,17 @@ typedef enum
     OK,
     OVERFLOW,
 } Status; // 状态码
+
+// 暂未实现有向图相关API接口,只支持无向图
 typedef enum
 {
     DG,
     DN,
-    UDG,
-    UDN
+    UDG, // 无向图
+    UDN  // 无向带权图
 } GraphKind;
+
+Status visit(int k); // 访问顶点k
 
 #ifdef ADJMATRIX
 typedef struct
@@ -43,18 +47,21 @@ typedef struct
     int *tags;
 } MGraph; // 邻接数组类型
 
-Status InitGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n);
+Status InitGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n); // 初始化含n个顶点且无边的kind类的图G
 Status CreateGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *arcs, int e);
+Status CreateUDG_M(MGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e);
 Status DestroyGraph_M(MGraph *G);
 int LocateVex_M(MGraph G, VexType v);
-Status GetVex_M(MGraph G, int k, VexType *w);
-Status PutVex_M(MGraph G, int k, VexType w);
+Status GetVex_M(MGraph *G, int k, VexType *w); // 取图G的k顶点的值到w
+Status PutVex_M(MGraph *G, int k, VexType w);  // 对图G的k顶点赋值w
 int FirstAdjVex_M(MGraph G, int k);
-int NextAdjVex_M(MGraph G, int k, int m);
-Status AddArc_M(MGraph *G, int k, int m, int info);
-Status RemoveArc_M(MGraph *G, int k, int m);
+int NextAdjVex_M(MGraph G, int k, int m);             // m顶点为k顶点的邻接顶点,求图G中k顶点相对于m顶点的下一个邻接顶点的位序
+Status AddArc_M(MGraph *G, int k, int m, int info);   // 在图G中增加k顶点到m顶点的边或弧,若为带权图,info为权值,否则为1
+Status RemoveArc_M(MGraph *G, int k, int m);          // 在图G中删除k顶点到m顶点的边或弧
 Status DFSTraverse_M(MGraph G, Status (*visit)(int)); // 深度优先遍历图G
 Status BFSTraverse_M(MGraph G, Status (*visit)(int)); // 广度优先遍历图G
+Status DFS_M(MGraph G, int k, Status (*visit)(int));  // 深度优先搜索图G中从顶点k开始访问
+Status BFS_M(MGraph G, int k, Status (*visit)(int));  // 广度优先搜索图G中从顶点k开始访问
 
 #endif
 
