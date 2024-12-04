@@ -51,10 +51,9 @@ int FirstAdjVex_M(MGraph G, int k);
 int NextAdjVex_M(MGraph G, int k, int m);             // m顶点为k顶点的邻接顶点,求图G中k顶点相对于m顶点的下一个邻接顶点的位序
 Status AddArc_M(MGraph *G, int k, int m, int info);   // 在图G中增加k顶点到m顶点的边或弧,若为带权图,info为权值,否则为1
 Status RemoveArc_M(MGraph *G, int k, int m);          // 在图G中删除k顶点到m顶点的边或弧
+Status DFS_M(MGraph G, int k, Status (*visit)(int));  // 深度优先搜索图G中从顶点k开始访问
 Status DFSTraverse_M(MGraph G, Status (*visit)(int)); // 深度优先遍历图G
 Status BFSTraverse_M(MGraph G, Status (*visit)(int)); // 广度优先遍历图G
-Status DFS_M(MGraph G, int k, Status (*visit)(int));  // 深度优先搜索图G中从顶点k开始访问
-Status BFS_M(MGraph G, int k, Status (*visit)(int));  // 广度优先搜索图G中从顶点k开始访问
 
 #endif
 

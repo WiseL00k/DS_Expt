@@ -1,4 +1,5 @@
 #include "UDGraph.h"
+#include "LQueue.h"
 
 Status visit(int k)
 {
@@ -199,15 +200,36 @@ Status DFSTraverse_M(MGraph G, Status (*visit)(int))
     return OK;
 }
 
-Status BFS_M(MGraph G, int k, Status (*visit)(int))
-{
-
-    return OK;
-}
-
 Status BFSTraverse_M(MGraph G, Status (*visit)(int))
 {
-
+    int i, j, k;
+    LQueue Q;
+    InitQueue_LQ(&Q);
+    for (i = 0; i < G.n; ++i)
+        G.tags[i] = UNVISITED; // 初始化标志数组
+    for (i = 0; i < G.n; ++i)
+    {
+        if (G.tags[i] == UNVISITED)
+        {
+            if (ERROR == visit(i))
+                return ERROR;
+            G.tags[i] = VISITED;
+            EnQueue_LQ(&Q, i);
+            while (DeQueue_LQ(&Q, k) == OK)
+            {
+                for (j = FirstAdjVex_M(G, k); j >= 0; j = NextAdjVex_M(G, k, j))
+                {
+                    if (G.tags[j] == UNVISITED)
+                    {
+                        if (ERROR == visit(j))
+                            return ERROR;
+                        G.tags[j] = VISITED;
+                        EnQueue_LQ(&Q, j);
+                    }
+                }
+            }
+        }
+    }
     return OK;
 }
 
