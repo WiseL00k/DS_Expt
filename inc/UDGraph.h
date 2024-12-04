@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "Status.h" // 状态码定义
 
 #define ADJMATRIX // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
 
@@ -17,14 +18,6 @@ typedef struct
     VexType v, w;
     int info;
 } ArcInfo;
-typedef enum
-{
-    ERROR = -1,
-    FALSE,
-    TRUE,
-    OK,
-    OVERFLOW,
-} Status; // 状态码
 
 // 暂未实现有向图相关API接口,只支持无向图
 typedef enum
@@ -100,4 +93,4 @@ Status BFSTraverse_AL(ALGraph G, Status (*visit)(int)); // 广度优先遍历图
 
 #endif
 
-#endif
+#endif /* __UDGRAPH_H__ */

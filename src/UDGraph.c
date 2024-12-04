@@ -184,6 +184,7 @@ Status DFS_M(MGraph G, int k, Status (*visit)(int))
     for (i = FirstAdjVex_M(G, k); i >= 0; i = NextAdjVex_M(G, k, i))
         if (G.tags[i] == UNVISITED) // 位序为i的邻接顶点未被访问过
             DFS_M(G, i, visit);     // 对i顶点递归深度搜索
+    return OK;
 }
 
 Status DFSTraverse_M(MGraph G, Status (*visit)(int))
@@ -198,8 +199,16 @@ Status DFSTraverse_M(MGraph G, Status (*visit)(int))
     return OK;
 }
 
+Status BFS_M(MGraph G, int k, Status (*visit)(int))
+{
+
+    return OK;
+}
+
 Status BFSTraverse_M(MGraph G, Status (*visit)(int))
 {
+
+    return OK;
 }
 
 #endif
