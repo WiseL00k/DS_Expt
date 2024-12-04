@@ -215,7 +215,7 @@ Status BFSTraverse_M(MGraph G, Status (*visit)(int))
                 return ERROR;
             G.tags[i] = VISITED;
             EnQueue_LQ(&Q, i);
-            while (DeQueue_LQ(&Q, k) == OK)
+            while (DeQueue_LQ(&Q, &k) == OK)
             {
                 for (j = FirstAdjVex_M(G, k); j >= 0; j = NextAdjVex_M(G, k, j))
                 {
