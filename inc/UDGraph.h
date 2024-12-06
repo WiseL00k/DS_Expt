@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "Status.h" // 状态码定义
 
-#define ADJMATRIX // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
+#define ADJLIST // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
 
 #define UNVISITED 0
 #define VISITED 1

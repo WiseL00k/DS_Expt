@@ -522,7 +522,7 @@ Status BFSTraverse_AL(ALGraph G, Status (*visit)(int))
                 return ERROR;
             G.tags[i] = VISITED;            // 设置标志为已访问
             EnQueue_LQ(&Q, i);              // 访问第一个邻接点
-            while (OK == DeQueue_LQ(&Q, k)) // 若队列非空，则继续访问其邻接点
+            while (OK == DeQueue_LQ(&Q, &k)) // 若队列非空，则继续访问其邻接点
             {
                 for (j = FirstAdjVex_AL(G, k, &p); j >= 0; j = NextAdjVex_AL(G, k, &p))
                     if (UNVISITED == G.tags[j])
@@ -539,6 +539,9 @@ Status BFSTraverse_AL(ALGraph G, Status (*visit)(int))
 
 Status printALGraph(ALGraph H)
 {
+    printf("该邻接表图的信息如下\n");
+    printf("顶点数:%d,边数:%d\n", H.n, H.e);
+    printf("邻接表如下\n");
     for (int k = 0; k < H.n; k++)
     {
         printf("%d: %c->", k, H.vexs[k].data);
