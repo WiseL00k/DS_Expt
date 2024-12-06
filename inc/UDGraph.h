@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "Status.h" // 状态码定义
 
-#define ADJLIST // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
+#define ADJMATRIX // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
 
 #define UNVISITED 0
 #define VISITED 1
@@ -54,6 +54,7 @@ Status RemoveArc_M(MGraph *G, int k, int m);          // 在图G中删除k顶点
 Status DFS_M(MGraph G, int k, Status (*visit)(int));  // 深度优先搜索图G中从顶点k开始访问
 Status DFSTraverse_M(MGraph G, Status (*visit)(int)); // 深度优先遍历图G
 Status BFSTraverse_M(MGraph G, Status (*visit)(int)); // 广度优先遍历图G
+Status printMGraph(MGraph H);                         // 打印邻接矩阵图
 
 #endif
 

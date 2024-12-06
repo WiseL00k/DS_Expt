@@ -235,6 +235,30 @@ Status BFSTraverse_M(MGraph G, Status (*visit)(int))
     return OK;
 }
 
+Status printMGraph(MGraph H)
+{
+    printf("该邻接矩阵图的信息如下\n");
+    printf("顶点数:%d,边数:%d\n", H.n, H.e);
+    printf("邻接矩阵如下\n");
+    printf("顶点数组 关系数组\n");
+    printf("行\\列->\t ");
+    for (int i = 0; i < H.n; i++)
+    {
+        printf("%d ",i);
+    }
+    printf("\n");
+    for (int i = 0; i < H.n; i++)
+    {
+        printf("%d %c\t ", i, H.vexs[i]);
+        for (int j = 0; j < H.n; j++)
+        {
+            printf("%d ", H.arcs[i][j]);
+        }
+        printf("\n");
+    }
+    return OK;
+}
+
 #endif
 
 #ifdef ADJLIST
