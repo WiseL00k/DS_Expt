@@ -94,6 +94,8 @@ Status DestroyGraph_M(MGraph *G)
     G->vexs = NULL;
     G->arcs = NULL;
     G->tags = NULL;
+    G->n = 0;
+    G->e = 0;
     return OK;
 }
 
@@ -229,6 +231,300 @@ Status BFSTraverse_M(MGraph G, Status (*visit)(int))
                 }
             }
         }
+    }
+    return OK;
+}
+
+#endif
+
+#ifdef ADJLIST
+
+Status CreateGraph_AL(ALGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *arcs, int e)
+{
+    if (n < 0 || e < 0 || (n > 0 && vexs == NULL) || (e > 0 && arcs == NULL))
+        return ERROR;
+    G->kind = kind;
+    switch (G->kind)
+    {
+    case UDG:
+        return CreateUDG_AL(G, vexs, n, arcs, e); // 创建无向图
+    default:
+        return ERROR;
+    }
+}
+
+Status CreateUDG_AL(ALGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e)
+{
+    int i, j, k;
+    VexType v, w;
+    AdjVexNodeP p;
+    G->n = n;
+    G->e = e;
+    G->vexs = (VexNode *)malloc(sizeof(VexNode) * n);
+    G->tags = (int *)malloc(sizeof(int) * n);
+    if (G->vexs == NULL || G->tags == NULL) // 内存分配失败
+        return ERROR;
+    for (i = 0; i < n; ++i)
+    {
+        G->vexs[i].data = vexs[i];
+        G->vexs[i].firstArc = NULL;
+        G->tags[i] = UNVISITED;
+    }
+    for (k = 0; k < G->e; ++k)
+    {
+        v = arcs[k].v;
+        w = arcs[k].w;
+        if (v == w) // 无向图无自环
+            continue;
+        i = LocateVex_AL(*G, v);
+        j = LocateVex_AL(*G, w);
+        if (i < 0 || j < 0) // v或w顶点不存在
+            return ERROR;
+
+        p = (AdjVexNodeP)malloc(sizeof(AdjVexNode));
+        if (p == NULL)
+            return ERROR;
+        p->info = 1;
+        p->adjvex = j;
+        p->nextArc = G->vexs[i].firstArc;
+        G->vexs[i].firstArc = p;
+
+        p = (AdjVexNodeP)malloc(sizeof(AdjVexNode));
+        if (p == NULL)
+            return ERROR;
+        p->info = 1;
+        p->adjvex = i;
+        p->nextArc = G->vexs[j].firstArc;
+        G->vexs[j].firstArc = p;
+    }
+    return OK;
+}
+
+Status DestroyGraph_AL(ALGraph *G)
+{
+    if (G == NULL)
+        return ERROR;
+    free(G->vexs);
+    free(G->tags);
+    G->vexs = NULL;
+    G->tags = NULL;
+    G->n = 0;
+    G->e = 0;
+    return OK;
+}
+
+int LocateVex_AL(ALGraph G, VexType v)
+{
+    if (G.vexs == NULL)
+        return -1;
+    for (int i = 0; i < G.n; ++i)
+        if (G.vexs[i].data == v)
+            return i;
+    return -1;
+}
+
+Status GetVex_AL(ALGraph G, int k, VexType *w)
+{
+    if (k < 0 || k >= G.n)
+        return ERROR;
+    *w = G.vexs[k].data;
+    return OK;
+}
+
+Status PutVex_AL(ALGraph G, int k, VexType w)
+{
+    if (k < 0 || k >= G.n)
+        return ERROR;
+    G.vexs[k].data = w;
+    return OK;
+}
+
+int FirstAdjVex_AL(ALGraph G, int k, AdjVexNodeP *p)
+{
+    if (k < 0 || k >= G.n)
+        return -1;
+    *p = G.vexs[k].firstArc;
+    if (*p != NULL)
+        return (*p)->adjvex;
+    else
+        return -1;
+}
+
+int NextAdjVex_AL(ALGraph G, int k, AdjVexNodeP *p)
+{
+    if (k < 0 || k >= G.n)
+        return -1;
+    if (*p == NULL)
+        return -1;
+    *p = (*p)->nextArc;
+    if (*p != NULL)
+        return (*p)->adjvex;
+    else
+        return -1;
+}
+
+Status AddArc_AL(ALGraph *G, int k, int m, int info)
+{
+    AdjVexNodeP p, q;
+    if (k < 0 || k >= G->n || m < 0 || m >= G->n) // k顶点或m顶点不存在
+        return ERROR;
+    p = G->vexs[k].firstArc;
+    q = NULL;
+    while (p != NULL) // 判断弧是否已存在
+    {
+        if (m == p->adjvex)
+        {
+            if (G->kind == UDN)
+            {
+                p->info = info;
+                p = G->vexs[m].firstArc;
+                q = NULL;
+                while (p != NULL) // 无向图弧的info值相同
+                {
+                    if (k == p->adjvex)
+                        p->info = info;
+                    q = p;
+                    p = p->nextArc;
+                }
+            }
+            return OK;
+        }
+        q = p;
+        p = p->nextArc;
+    }
+    p = (AdjVexNodeP)malloc(sizeof(AdjVexNode));
+    if (p == NULL)
+        return OVERFLOW;
+    p->info = G->kind == UDN ? info : 1;
+    p->adjvex = m;
+    p->nextArc = G->vexs[k].firstArc;
+    G->vexs[k].firstArc = p;
+    if (UDG == G->kind || UDN == G->kind)
+    {
+        p = (AdjVexNodeP)malloc(sizeof(AdjVexNode));
+        if (p == NULL)
+            return OVERFLOW;
+        p->info = G->kind == UDN ? info : 1;
+        p->adjvex = k;
+        p->nextArc = G->vexs[m].firstArc;
+        G->vexs[m].firstArc = p;
+    }
+    G->e++;
+    return OK;
+}
+
+Status RemoveArc_AL(ALGraph *G, int k, int m)
+{
+    AdjVexNodeP p, q;
+    if (k < 0 || k >= G->n || m < 0 || m >= G->n) // k顶点或m顶点不存在
+        return ERROR;
+    p = G->vexs[k].firstArc;
+    q = NULL;
+    while (p != NULL) // 判断弧是否已存在
+    {
+        if (m == p->adjvex)
+        {
+            if (q == NULL)
+                G->vexs[k].firstArc = p->nextArc;
+            else
+                q->nextArc = p->nextArc;
+            free(p);
+        }
+        q = p;
+        p = p->nextArc;
+    }
+    if (UDG == G->kind || UDN == G->kind)
+    {
+        p = G->vexs[m].firstArc;
+        q = NULL;
+        while (p != NULL)
+        {
+            if (k == p->adjvex)
+            {
+                if (q == NULL)
+                    G->vexs[m].firstArc = p->nextArc;
+                else
+                    q->nextArc = p->nextArc;
+                free(p);
+            }
+            q = p;
+            p = p->nextArc;
+        }
+    }
+    G->e--;
+    return OK;
+}
+
+Status DFS_AL(ALGraph G, int k, Status (*visit)(int))
+{
+    int i;
+    AdjVexNodeP p;
+    G.tags[k] = VISITED;
+    if (ERROR == visit(k))
+        return ERROR;
+    for (i = FirstAdjVex_AL(G, k, &p); i >= 0; i = NextAdjVex_AL(G, k, &p))
+    {
+        if (UNVISITED == G.tags[i])
+            if (ERROR == DFS_AL(G, i, visit))
+                return ERROR;
+    }
+    return OK;
+}
+
+Status DFSTraverse_AL(ALGraph G, Status (*visit)(int))
+{
+    int i;
+    for (i = 0; i < G.n; ++i)
+        G.tags[i] = UNVISITED; // 初始化标志数组
+    for (i = 0; i < G.n; ++i)
+        if (UNVISITED == G.tags[i])
+            if (ERROR == DFS_AL(G, i, visit))
+                return ERROR;
+    return OK;
+}
+
+Status BFSTraverse_AL(ALGraph G, Status (*visit)(int))
+{
+    int i, j, k;
+    AdjVexNodeP p;
+    LQueue Q;
+    InitQueue_LQ(&Q);
+    for (i = 0; i < G.n; ++i)
+        G.tags[i] = UNVISITED; // 初始化标志数组
+    for (i = 0; i < G.n; ++i)
+        if (UNVISITED == G.tags[i])
+        {
+            if (ERROR == visit(i))
+                return ERROR;
+            G.tags[i] = VISITED;            // 设置标志为已访问
+            EnQueue_LQ(&Q, i);              // 访问第一个邻接点
+            while (OK == DeQueue_LQ(&Q, k)) // 若队列非空，则继续访问其邻接点
+            {
+                for (j = FirstAdjVex_AL(G, k, &p); j >= 0; j = NextAdjVex_AL(G, k, &p))
+                    if (UNVISITED == G.tags[j])
+                    {
+                        if (ERROR == visit(j))
+                            return ERROR;
+                        G.tags[j] = VISITED;
+                        EnQueue_LQ(&Q, j);
+                    }
+            }
+        }
+    return OK;
+}
+
+Status printALGraph(ALGraph H)
+{
+    for (int k = 0; k < H.n; k++)
+    {
+        printf("%d: %c->", k, H.vexs[k].data);
+        AdjVexNodeP p = H.vexs[k].firstArc;
+        for (; p != NULL; p = p->nextArc)
+        {
+            int j = p->adjvex;
+            printf("%d(%c) ", j, H.vexs[j].data);
+        }
+        printf("\n");
     }
     return OK;
 }

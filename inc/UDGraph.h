@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include "Status.h" // 状态码定义
 
-#define ADJMATRIX // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
+#define ADJLIST // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
 
 #define UNVISITED 0
 #define VISITED 1
@@ -44,7 +44,7 @@ Status InitGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n); // 初始�
 Status CreateGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *arcs, int e);
 Status CreateUDG_M(MGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e);
 Status DestroyGraph_M(MGraph *G);
-int LocateVex_M(MGraph G, VexType v);
+int LocateVex_M(MGraph G, VexType v);          // 查找顶点v在图G中的位序
 Status GetVex_M(MGraph *G, int k, VexType *w); // 取图G的k顶点的值到w
 Status PutVex_M(MGraph *G, int k, VexType w);  // 对图G的k顶点赋值w
 int FirstAdjVex_M(MGraph G, int k);
@@ -79,16 +79,19 @@ typedef struct
 } ALGraph; // 邻接表类型
 
 Status CreateGraph_AL(ALGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *arcs, int e);
-Status DestroyGraph_AL(ALGraph *G); // 销毁图G
-Status LocateVex_AL(ALGraph G, VexType v);
+Status CreateUDG_AL(ALGraph *G, VexType *vexs, int n, ArcInfo *arcs, int e);
+Status DestroyGraph_AL(ALGraph *G);        // 销毁图G
+Status LocateVex_AL(ALGraph G, VexType v); // 查找顶点v在图G中的位序
 Status GetVex_AL(ALGraph G, int k, VexType *w);
 Status PutVex_AL(ALGraph G, int k, VexType w);
 int FirstAdjVex_AL(ALGraph G, int k, AdjVexNodeP *p);
 int NextAdjVex_AL(ALGraph G, int k, AdjVexNodeP *p);
 Status AddArc_AL(ALGraph *G, int k, int m, int info);
 Status RemoveArc_AL(ALGraph *G, int k, int m);
+Status DFS_AL(ALGraph G, int k, Status (*visit)(int));  // 深度优先搜索图G,从顶点k开始访问
 Status DFSTraverse_AL(ALGraph G, Status (*visit)(int)); // 深度优先遍历图G
 Status BFSTraverse_AL(ALGraph G, Status (*visit)(int)); // 广度优先遍历图G
+Status printALGraph(ALGraph H);                         // 打印邻接表图
 
 #endif
 
