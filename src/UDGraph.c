@@ -543,7 +543,7 @@ Status printALGraph(ALGraph H)
     printf("顶点数:%d,边数:%d\n", H.n, H.e);
     printf("邻接表如下\n");
     for (int k = 0; k < H.n; k++)
-    {
+    {   
         printf("%d: %c->", k, H.vexs[k].data);
         AdjVexNodeP p = H.vexs[k].firstArc;
         for (; p != NULL; p = p->nextArc)
