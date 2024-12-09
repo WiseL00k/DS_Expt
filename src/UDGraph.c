@@ -109,19 +109,19 @@ int LocateVex_M(MGraph G, VexType v)
     return -1;        // 未找到顶点返回-1
 }
 
-Status GetVex_M(MGraph *G, int k, VexType *w)
+Status GetVex_M(MGraph G, int k, VexType *w)
 {
-    if (k < 0 || k >= G->n)
+    if (k < 0 || k >= G.n)
         return -1;   // k顶点不存在
-    *w = G->vexs[k]; // 将k顶点的值赋给w
+    *w = G.vexs[k]; // 将k顶点的值赋给w
     return OK;
 }
 
-Status PutVex_M(MGraph *G, int k, VexType v)
+Status PutVex_M(MGraph G, int k, VexType v)
 {
-    if (k < 0 || k >= G->n)
+    if (k < 0 || k >= G.n)
         return -1;  // k顶点不存在
-    G->vexs[k] = v; // 将v赋给k顶点
+    G.vexs[k] = v; // 将v赋给k顶点
     return OK;
 }
 

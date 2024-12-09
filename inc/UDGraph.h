@@ -52,9 +52,9 @@ Status DestroyGraph_M(MGraph *G);
 // 查找顶点v在图G中的位序
 int LocateVex_M(MGraph G, VexType v);
 // 取图G的k顶点的值到w
-Status GetVex_M(MGraph *G, int k, VexType *w);
+Status GetVex_M(MGraph G, int k, VexType *w);
 // 对图G的k顶点赋值w
-Status PutVex_M(MGraph *G, int k, VexType w);
+Status PutVex_M(MGraph G, int k, VexType w);
 // 求图G中k顶点的第一个邻接顶点的位序,若不存在则返回-1
 int FirstAdjVex_M(MGraph G, int k);
 // m顶点为k顶点的邻接顶点,求图G中k顶点相对于m顶点的下一个邻接顶点的位序

@@ -30,7 +30,7 @@ void test_M(MGraph *Gptr)
             VexType w;
             printf("请输入要取值的顶点w: ");
             scanf("%d", k);
-            if (ERROR != GetVex_M(Gptr, k, &w))
+            if (ERROR != GetVex_M(*Gptr, k, &w))
                 printf("顶点%d的值为%c\n", k, w);
             else
                 printf("顶点%d不存在\n", k);
@@ -72,8 +72,8 @@ void test_M(MGraph *Gptr)
         fflush(stdin); // 清空输入缓冲区
         if(select != EXIT)
         {
-            puts("按任意键继续...");
-            system("pause");
+            puts("按回车键以继续...");
+            getchar();
             system("cls");
         }
     } while (select != EXIT);
@@ -152,8 +152,8 @@ void test_AL(ALGraph *Gptr)
         fflush(stdin); // 清空输入缓冲区
         if(select != EXIT)
         {
-            puts("按任意键继续...");
-            system("pause");
+            puts("按回车键以继续...");
+            getchar();
             system("cls");
         }
     } while (select != EXIT);
