@@ -244,7 +244,7 @@ Status printMGraph(MGraph H)
     printf("行\\列->\t ");
     for (int i = 0; i < H.n; i++)
     {
-        printf("%d ",i);
+        printf("%d ", i);
     }
     printf("\n");
     for (int i = 0; i < H.n; i++)
@@ -256,6 +256,23 @@ Status printMGraph(MGraph H)
         }
         printf("\n");
     }
+    return OK;
+}
+
+Status SetArc_M(MGraph *G, VexType v, VexType w, int info)
+{
+    if (v == w && G->kind == UDG)
+        return ERROR;
+    int k = LocateVex_M(*G, v);
+    int m = LocateVex_M(*G, w);
+    if (k < 0 || k >= G->n || m < 0 || m >= G->n)
+        return ERROR; // k顶点或m顶点不存在
+    if (G->kind == UDG)
+        G->arcs[k][m] = G->arcs[m][k] = 1;
+    else if (G->kind == UDN)
+        G->arcs[k][m] = G->arcs[m][k] = info;
+    else
+        G->arcs[k][m] = info;
     return OK;
 }
 
@@ -520,8 +537,8 @@ Status BFSTraverse_AL(ALGraph G, Status (*visit)(int))
         {
             if (ERROR == visit(i))
                 return ERROR;
-            G.tags[i] = VISITED;            // 设置标志为已访问
-            EnQueue_LQ(&Q, i);              // 访问第一个邻接点
+            G.tags[i] = VISITED;             // 设置标志为已访问
+            EnQueue_LQ(&Q, i);               // 访问第一个邻接点
             while (OK == DeQueue_LQ(&Q, &k)) // 若队列非空，则继续访问其邻接点
             {
                 for (j = FirstAdjVex_AL(G, k, &p); j >= 0; j = NextAdjVex_AL(G, k, &p))
@@ -543,7 +560,7 @@ Status printALGraph(ALGraph H)
     printf("顶点数:%d,边数:%d\n", H.n, H.e);
     printf("邻接表如下\n");
     for (int k = 0; k < H.n; k++)
-    {   
+    {
         printf("%d: %c->", k, H.vexs[k].data);
         AdjVexNodeP p = H.vexs[k].firstArc;
         for (; p != NULL; p = p->nextArc)
@@ -553,6 +570,38 @@ Status printALGraph(ALGraph H)
         }
         printf("\n");
     }
+    return OK;
+}
+
+Status SetArc_AL(ALGraph *G, VexType v, VexType w, int info)
+{
+    if (v == w && G->kind == UDG)
+        return ERROR;
+    int k = LocateVex_AL(*G, v);
+    int m = LocateVex_AL(*G, w);
+    if (k < 0 || k >= G->n || m < 0 || m >= G->n)
+        return ERROR; // k顶点或m顶点不存在
+    AdjVexNodeP p = G->vexs[k].firstArc;
+    while (p != NULL && p->adjvex != k)
+        p = p->nextArc;
+    if (G->kind == UDG)
+    {
+        p->info = 1;
+        p = G->vexs[m].firstArc;
+        while (p != NULL && p->adjvex != m)
+            p = p->nextArc;
+        p->info = 1; // 无向图是双向的，设置反向边信息为1
+    }
+    else if (G->kind == UDN)
+    {
+        p->info = info;
+        p = G->vexs[m].firstArc;
+        while (p != NULL && p->adjvex != m)
+            p = p->nextArc;
+        p->info = info; // 无向图是双向的，设置反向边信息为1
+    }
+    else
+        p->info = info;
     return OK;
 }
 
