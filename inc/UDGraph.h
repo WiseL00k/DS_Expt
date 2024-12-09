@@ -55,9 +55,9 @@ int LocateVex_M(MGraph G, VexType v);
 Status GetVex_M(MGraph *G, int k, VexType *w);
 // 对图G的k顶点赋值w
 Status PutVex_M(MGraph *G, int k, VexType w);
-// m顶点为k顶点的邻接顶点,求图G中k顶点相对于m顶点的下一个邻接顶点的位序
+// 求图G中k顶点的第一个邻接顶点的位序,若不存在则返回-1
 int FirstAdjVex_M(MGraph G, int k);
-// 在图G中增加k顶点到m顶点的边或弧,若为带权图,info为权值,否则为1
+// m顶点为k顶点的邻接顶点,求图G中k顶点相对于m顶点的下一个邻接顶点的位序
 int NextAdjVex_M(MGraph G, int k, int m);
 // 在图G中增加k顶点到m顶点的边或弧,若为带权图,info为权值,否则为1
 Status AddArc_M(MGraph *G, int k, int m, int info);

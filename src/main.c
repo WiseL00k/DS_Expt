@@ -10,7 +10,7 @@ int main(void)
     ArcInfo arcs[5] = {{'A', 'C', 1}, {'A', 'D', 1}, {'C', 'E', 1}, {'C', 'D', 1}, {'B', 'D', 1}};
     do
     {
-        displayMenu();
+        displayMainMenu();
         scanf("%d", &select);
         switch (select)
         {
@@ -33,14 +33,13 @@ int main(void)
             break;
         default:
             printf("输入错误,请重试!\n");
+            puts("按任意键继续...");
+            system("pause");
             break;
         }
-        fflush(stdin); //清空输入缓冲区
-        puts("按任意键继续...");
-        system("pause");
-        system("cls"); //清屏
-    }
-    while(select != EXIT);
-    
+        fflush(stdin); // 清空输入缓冲区
+        system("cls"); // 清屏
+    } while (select != EXIT);
+
     return 0;
 }
