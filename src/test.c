@@ -5,11 +5,15 @@ void test_M(MGraph *Gptr)
     int select;
     do
     {
+        system("cls");
         printf("---------------------------------------------\n");
         printMGraph(*Gptr);
         printf("---------------------------------------------\n");
         displayTestMenu_M();
+        select = -1;
+        fflush(stdin); // 清空输入缓冲区
         scanf("%d", &select);
+        fflush(stdin); // 清空输入缓冲区
         switch (select)
         {
         case 1:
@@ -17,12 +21,14 @@ void test_M(MGraph *Gptr)
             VexType v;
             int i;
             printf("请输入要查找的顶点v: ");
-            scanf("%c", v);
+            fflush(stdin); // 清空输入缓冲区
+            scanf("%c", &v);
             i = LocateVex_M(*Gptr, v);
             if (i != -1)
                 printf("顶点%c在图G中的位序为%d\n", v, i);
             else
                 printf("顶点%c不在图中\n", v);
+            break;
         }
         case 2:
         {
@@ -34,33 +40,41 @@ void test_M(MGraph *Gptr)
                 printf("顶点%d的值为%c\n", k, w);
             else
                 printf("顶点%d不存在\n", k);
+            break;
         }
         case 3:
         {
+            break;
         }
         case 4:
         {
+            break;
         }
         case 5:
         {
+            break;
         }
         case 6:
         {
+            break;
         }
         case 7:
         {
+            break;
         }
         case 8:
         {
             printf("MGraph_DFS:\n");
             DFSTraverse_M(*Gptr, visit);
             printf("\n");
+            break;
         }
         case 9:
         {
             printf("MGraph_BFS:\n");
             BFSTraverse_M(*Gptr, visit);
             printf("\n");
+            break;
         }
         case EXIT:
             system("cls");
@@ -69,11 +83,10 @@ void test_M(MGraph *Gptr)
             printf("输入错误,请重试!\n");
             break;
         }
-        fflush(stdin); // 清空输入缓冲区
         if(select != EXIT)
         {
-            puts("按回车键以继续...");
-            getchar();
+            puts("按任意键以继续...");
+            system("pause");
             system("cls");
         }
     } while (select != EXIT);
@@ -85,11 +98,15 @@ void test_AL(ALGraph *Gptr)
     int select;
     do
     {
+        system("cls");
         printf("---------------------------------------------\n");
         printALGraph(*Gptr);
         printf("---------------------------------------------\n");
         displayTestMenu_AL();
+        select = -1;
+        fflush(stdin); // 清空输入缓冲区
         scanf("%d", &select);
+        fflush(stdin); // 清空输入缓冲区
         switch (select)
         {
         case 1:
@@ -97,12 +114,13 @@ void test_AL(ALGraph *Gptr)
             VexType v;
             int i;
             printf("请输入要查找的顶点v: ");
-            scanf("%c", v);
+            scanf("%c", &v);
             i = LocateVex_AL(*Gptr, v);
             if (i != -1)
                 printf("顶点%c在图G中的位序为%d\n", v, i);
             else
                 printf("顶点%c不在图中\n", v);
+            break;
         }
         case 2:
         {
@@ -114,33 +132,41 @@ void test_AL(ALGraph *Gptr)
                 printf("顶点%d的值为%c\n", k, w);
             else
                 printf("顶点%d不存在\n", k);
+            break;
         }
         case 3:
         {
+            break;
         }
         case 4:
         {
+            break;
         }
         case 5:
         {
+            break;
         }
         case 6:
         {
+            break;
         }
         case 7:
         {
+            break;
         }
         case 8:
         {
             printf("ALGraph_DFS:\n");
             DFSTraverse_AL(*Gptr, visit);
             printf("\n");
+            break;
         }
         case 9:
         {
             printf("ALGraph_BFS:\n");
             BFSTraverse_AL(*Gptr, visit);
             printf("\n");
+            break;
         }
         case EXIT:
             system("cls");
@@ -149,11 +175,10 @@ void test_AL(ALGraph *Gptr)
             printf("输入错误,请重试!\n");
             break;
         }
-        fflush(stdin); // 清空输入缓冲区
         if(select != EXIT)
         {
-            puts("按回车键以继续...");
-            getchar();
+            puts("按任意键以继续...");
+            system("pause");
             system("cls");
         }
     } while (select != EXIT);
