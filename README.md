@@ -15,11 +15,11 @@
 
 ### API声明
 
-见`DSU.h`文件
+见 `DSU.h`文件
 
 ### API实现
 
-见`DSU.c`文件
+见 `DSU.c`文件
 
 ## 无向图接口实现
 
@@ -29,13 +29,13 @@
 
 *ps:需要在 `UDGraph.h`文件中定义*
 
-* `ADJMATRIX`	采用邻接矩阵存储结构
-* `ADJLIST`	采用邻接表存储结构
+* `USE_ADJMATRIX`	采用邻接矩阵存储结构
+* `USE_ADJLIST`	采用邻接表存储结构
 
-### API声明	
+### API声明
 
-见`UDGraph.h`文件
+见 `UDGraph.h`文件
 
 ### API实现
 
-见`UDGraph.c`文件
+见 `UDGraph.c`文件
