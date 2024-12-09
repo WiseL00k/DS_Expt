@@ -7,7 +7,7 @@ Status visit(int k)
     return OK;
 }
 
-#ifdef ADJMATRIX
+#ifdef USE_ADJMATRIX
 
 Status InitGraph_M(MGraph *G, GraphKind kind, VexType *vexs, int n)
 {
@@ -278,7 +278,7 @@ Status SetArc_M(MGraph *G, VexType v, VexType w, int info)
 
 #endif
 
-#ifdef ADJLIST
+#ifdef USE_ADJLIST
 
 Status CreateGraph_AL(ALGraph *G, GraphKind kind, VexType *vexs, int n, ArcInfo *arcs, int e)
 {

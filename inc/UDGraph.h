@@ -5,7 +5,8 @@
 #include <stdlib.h>
 #include "Status.h" // 状态码定义
 
-#define ADJLIST // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
+#define USE_ADJMATRIX
+#define USE_ADJLIST // 选择图存储方式，选择一种即可 邻接矩阵 ADJMATRIX 或者 邻接表 ADJLIST
 
 #define UNVISITED 0
 #define VISITED 1
@@ -30,7 +31,7 @@ typedef enum
 
 Status visit(int k); // 访问顶点k
 
-#ifdef ADJMATRIX
+#ifdef USE_ADJMATRIX
 typedef struct
 {
     VexType *vexs;
@@ -75,7 +76,7 @@ Status SetArc_M(MGraph *G, VexType v, VexType w, int info);
 
 #endif
 
-#ifdef ADJLIST
+#ifdef USE_ADJLIST
 
 typedef struct AdjVexNode
 {
