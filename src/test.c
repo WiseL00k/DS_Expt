@@ -17,50 +17,17 @@ void test_M(MGraph *Gptr)
         switch (select)
         {
         case 1:
-        {
-            VexType v;
-            int i;
-            printf("请输入要查找的顶点v: ");
-            scanf("%c", &v);
-            i = LocateVex_M(*Gptr, v);
-            if (i != -1)
-                printf("顶点%c在图G中的位序为%d\n", v, i);
-            else
-                printf("顶点%c不在图中\n", v);
+            test_LocateVex_M(Gptr);
             break;
-        }
         case 2:
         {
-            int k = -1;
-            VexType w;
-            printf("请输入要取值的顶点k: ");
-            scanf("%d", &k);
-            if (k < 0)
-                printf("输入有误,请重试!\n");
-            else if (ERROR != GetVex_M(*Gptr, k, &w))
-                printf("顶点%d的值为%c\n", k, w);
-            else
-                printf("顶点%d不存在\n", k);
+            test_GetVex_M(Gptr);
+
             break;
         }
         case 3:
         {
-            int k = -1;
-            VexType w;
-            printf("请输入要赋值的顶点k: ");
-            scanf("%d", &k);
-            if (k < 0)
-            {
-                printf("输入有误,请重试!\n");
-                break;
-            }
-            printf("请输入要赋的值w: ");
-            fflush(stdin); // 清空输入缓冲区
-            scanf("%c", &w);
-            if (ERROR != PutVex_M(*Gptr, k, w))
-                printf("顶点%d现在的值为%c\n", k, w);
-            else
-                printf("顶点%d不存在\n", k);
+            test_PutVex_M(Gptr);
             break;
         }
         case 4:
@@ -129,49 +96,17 @@ void test_AL(ALGraph *Gptr)
         {
         case 1:
         {
-            VexType v;
-            int i;
-            printf("请输入要查找的顶点v: ");
-            scanf("%c", &v);
-            i = LocateVex_AL(*Gptr, v);
-            if (i != -1)
-                printf("顶点%c在图G中的位序为%d\n", v, i);
-            else
-                printf("顶点%c不在图中\n", v);
+            test_LocateVex_AL(Gptr);
             break;
         }
         case 2:
         {
-            int k = -1;
-            VexType w;
-            printf("请输入要取值的顶点w: ");
-            scanf("%d", &k);
-            if (k < 0)
-                printf("输入有误,请重试!\n");
-            else if (ERROR != GetVex_AL(*Gptr, k, &w))
-                printf("顶点%d的值为%c\n", k, w);
-            else
-                printf("顶点%d不存在\n", k);
+            test_GetVex_AL(Gptr);
             break;
         }
         case 3:
         {
-            int k = -1;
-            VexType w;
-            printf("请输入要赋值的顶点k: ");
-            scanf("%d", &k);
-            if (k < 0)
-            {
-                printf("输入有误,请重试!\n");
-                break;
-            }
-            printf("请输入要赋的值w: ");
-            fflush(stdin); // 清空输入缓冲区
-            scanf("%c", &w);
-            if (ERROR != PutVex_AL(*Gptr, k, w))
-                printf("顶点%d现在的值为%c\n", k, w);
-            else
-                printf("顶点%d不存在\n", k);
+            test_PutVex_AL(Gptr);
             break;
         }
         case 4:
@@ -225,11 +160,13 @@ void test_AL(ALGraph *Gptr)
 void displayMainMenu()
 {
     printf("数据结构实验无向图测试\n");
-    printf("-----------------------\n");
+    printf("------------------------------------------\n");
+    printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
+    printf("------------------------------------------\n");
     printf("1. 测试邻接矩阵\n");
     printf("2. 测试邻接表\n");
     printf("0. 退出\n");
-    printf("-----------------------\n");
+    printf("------------------------------------------\n");
     printf("请输入你的选择: ");
 }
 
@@ -265,19 +202,112 @@ void displayTestMenu_AL()
     printf("请输入你的选择: ");
 }
 
+void test_LocateVex_M(MGraph *Gptr)
+{
+    VexType v;
+    int i;
+    printf("请输入要查找的顶点v: ");
+    scanf("%c", &v);
+    i = LocateVex_M(*Gptr, v);
+    if (i != -1)
+        printf("顶点%c在图G中的位序为%d\n", v, i);
+    else
+        printf("顶点%c不在图中\n", v);
+}
+
+void test_LocateVex_AL(ALGraph *Gptr)
+{
+    VexType v;
+    int i;
+    printf("请输入要查找的顶点v: ");
+    scanf("%c", &v);
+    i = LocateVex_AL(*Gptr, v);
+    if (i != -1)
+        printf("顶点%c在图G中的位序为%d\n", v, i);
+    else
+        printf("顶点%c不在图中\n", v);
+}
+
+void test_GetVex_M(MGraph *Gptr)
+{
+    int k = -1;
+    VexType w;
+    printf("请输入要取值的顶点k: ");
+    scanf("%d", &k);
+    if (k < 0)
+        printf("输入有误,请重试!\n");
+    else if (ERROR != GetVex_M(*Gptr, k, &w))
+        printf("顶点%d的值为%c\n", k, w);
+    else
+        printf("顶点%d不存在\n", k);
+}
+
+void test_GetVex_AL(ALGraph *Gptr)
+{
+    int k = -1;
+    VexType w;
+    printf("请输入要取值的顶点w: ");
+    scanf("%d", &k);
+    if (k < 0)
+        printf("输入有误,请重试!\n");
+    else if (ERROR != GetVex_AL(*Gptr, k, &w))
+        printf("顶点%d的值为%c\n", k, w);
+    else
+        printf("顶点%d不存在\n", k);
+}
+
+void test_PutVex_M(MGraph *Gptr)
+{
+    int k = -1;
+    VexType w;
+    printf("请输入要赋值的顶点k: ");
+    scanf("%d", &k);
+    if (k < 0)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
+    printf("请输入要赋的值w: ");
+    fflush(stdin); // 清空输入缓冲区
+    scanf("%c", &w);
+    if (ERROR != PutVex_M(*Gptr, k, w))
+        printf("顶点%d现在的值为%c\n", k, w);
+    else
+        printf("顶点%d不存在\n", k);
+}
+
+void test_PutVex_AL(ALGraph *Gptr)
+{
+    int k = -1;
+    VexType w;
+    printf("请输入要赋值的顶点k: ");
+    scanf("%d", &k);
+    if (k < 0)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
+    printf("请输入要赋的值w: ");
+    fflush(stdin); // 清空输入缓冲区
+    scanf("%c", &w);
+    if (ERROR != PutVex_AL(*Gptr, k, w))
+        printf("顶点%d现在的值为%c\n", k, w);
+    else
+        printf("顶点%d不存在\n", k);
+}
 
 void test_FirstAdjVex_M(MGraph *Gptr)
 {
-    int k = -1,i;
+    int k = -1, i;
     printf("请输入要求的第一个邻接顶点的顶点k: ");
     scanf("%d", &k);
     if (k < 0)
     {
         printf("输入有误,请重试!\n");
-        return ;
+        return;
     }
     i = FirstAdjVex_M(*Gptr, k);
-    if(i < 0)
+    if (i < 0)
         printf("顶点%d没有邻接顶点!\n", k);
     else
         printf("顶点%d的第一个邻接顶点是%d\n", k, i);
@@ -285,17 +315,17 @@ void test_FirstAdjVex_M(MGraph *Gptr)
 
 void test_FirstAdjVex_AL(ALGraph *Gptr)
 {
-    int k = -1,i;
+    int k = -1, i;
     AdjVexNodeP p;
     printf("请输入要求的第一个邻接顶点的顶点k: ");
     scanf("%d", &k);
     if (k < 0)
     {
         printf("输入有误,请重试!\n");
-        return ;
+        return;
     }
     i = FirstAdjVex_AL(*Gptr, k, &p);
-    if(i < 0)
+    if (i < 0)
         printf("顶点%d没有邻接顶点!\n", k);
     else
         printf("顶点%d的第一个邻接顶点是%d\n", k, i);
