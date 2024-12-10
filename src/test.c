@@ -20,49 +20,30 @@ void test_M(MGraph *Gptr)
             test_LocateVex_M(Gptr);
             break;
         case 2:
-        {
             test_GetVex_M(Gptr);
-
             break;
-        }
         case 3:
-        {
             test_PutVex_M(Gptr);
             break;
-        }
         case 4:
-        {
             test_FirstAdjVex_M(Gptr);
             break;
-        }
         case 5:
-        {
+            test_NextAdjVex_M(Gptr);
             break;
-        }
         case 6:
-        {
+            test_AddArc_M(Gptr);
             break;
-        }
         case 7:
-        {
+            test_RemoveArc_M(Gptr);
             break;
-        }
         case 8:
-        {
-            printf("MGraph_DFS:\n");
-            DFSTraverse_M(*Gptr, visit);
-            printf("\n");
+            test_DFS_M(Gptr);
             break;
-        }
         case 9:
-        {
-            printf("MGraph_BFS:\n");
-            BFSTraverse_M(*Gptr, visit);
-            printf("\n");
+            test_BFS_M(Gptr);
             break;
-        }
         case EXIT:
-            system("cls");
             break;
         default:
             printf("输入错误,请重试!\n");
@@ -72,7 +53,6 @@ void test_M(MGraph *Gptr)
         {
             puts("按任意键以继续...");
             system("pause");
-            system("cls");
         }
     } while (select != EXIT);
     DestroyGraph_M(Gptr);
@@ -95,53 +75,33 @@ void test_AL(ALGraph *Gptr)
         switch (select)
         {
         case 1:
-        {
             test_LocateVex_AL(Gptr);
             break;
-        }
         case 2:
-        {
             test_GetVex_AL(Gptr);
             break;
-        }
         case 3:
-        {
             test_PutVex_AL(Gptr);
             break;
-        }
         case 4:
-        {
             test_FirstAdjVex_AL(Gptr);
             break;
-        }
         case 5:
-        {
+            test_NextAdjVex_AL(Gptr);
             break;
-        }
         case 6:
-        {
+            test_AddArc_AL(Gptr);
             break;
-        }
         case 7:
-        {
+            test_RemoveArc_AL(Gptr);
             break;
-        }
         case 8:
-        {
-            printf("ALGraph_DFS:\n");
-            DFSTraverse_AL(*Gptr, visit);
-            printf("\n");
+            test_DFS_AL(Gptr);
             break;
-        }
         case 9:
-        {
-            printf("ALGraph_BFS:\n");
-            BFSTraverse_AL(*Gptr, visit);
-            printf("\n");
+            test_BFS_AL(Gptr);
             break;
-        }
         case EXIT:
-            system("cls");
             break;
         default:
             printf("输入错误,请重试!\n");
@@ -151,7 +111,6 @@ void test_AL(ALGraph *Gptr)
         {
             puts("按任意键以继续...");
             system("pause");
-            system("cls");
         }
     } while (select != EXIT);
     DestroyGraph_AL(Gptr);
@@ -329,4 +288,56 @@ void test_FirstAdjVex_AL(ALGraph *Gptr)
         printf("顶点%d没有邻接顶点!\n", k);
     else
         printf("顶点%d的第一个邻接顶点是%d\n", k, i);
+}
+
+void test_NextAdjVex_M(MGraph *Gptr)
+{
+}
+
+void test_NextAdjVex_AL(ALGraph *Gptr)
+{
+}
+
+void test_AddArc_M(MGraph *Gptr)
+{
+}
+
+void test_AddArc_AL(ALGraph *Gptr)
+{
+}
+
+void test_RemoveArc_M(MGraph *Gptr)
+{
+}
+
+void test_RemoveArc_AL(ALGraph *Gptr)
+{
+}
+
+void test_DFS_M(MGraph *Gptr)
+{
+    printf("MGraph_DFS:\n");
+    DFSTraverse_M(*Gptr, visit);
+    printf("\n");
+}
+
+void test_DFS_AL(ALGraph *Gptr)
+{
+    printf("ALGraph_DFS:\n");
+    DFSTraverse_AL(*Gptr, visit);
+    printf("\n");
+}
+
+void test_BFS_M(MGraph *Gptr)
+{
+    printf("MGraph_BFS:\n");
+    BFSTraverse_M(*Gptr, visit);
+    printf("\n");
+}
+
+void test_BFS_AL(ALGraph *Gptr)
+{
+    printf("ALGraph_BFS:\n");
+    BFSTraverse_AL(*Gptr, visit);
+    printf("\n");
 }
