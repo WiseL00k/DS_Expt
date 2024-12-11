@@ -347,10 +347,15 @@ void test_AddArc_M(MGraph *Gptr)
     printf("请输入要添加弧的另一个顶点m: ");
     fflush(stdin); // 清空输入缓冲区
     scanf("%d", &m);
+    if (m < 0 || m >= Gptr->n)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
     if (ERROR != AddArc_M(Gptr, k, m, 1))
         printf("添加弧成功!\n");
     else
-        printf("输入有误,请重试!\n");
+        printf("请不要添加已存在的弧!\n");
 }
 
 void test_AddArc_AL(ALGraph *Gptr)
@@ -366,10 +371,15 @@ void test_AddArc_AL(ALGraph *Gptr)
     printf("请输入要添加弧的另一个顶点m: ");
     fflush(stdin); // 清空输入缓冲区
     scanf("%d", &m);
+    if (m < 0 || m >= Gptr->n)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
     if (ERROR != AddArc_AL(Gptr, k, m, 1))
         printf("添加弧成功!\n");
     else
-        printf("输入有误,请重试!\n");
+        printf("请不要添加已存在的弧!\n");
 }
 
 void test_RemoveArc_M(MGraph *Gptr)
@@ -385,10 +395,15 @@ void test_RemoveArc_M(MGraph *Gptr)
     printf("请输入要删除弧的另一个顶点m: ");
     fflush(stdin); // 清空输入缓冲区
     scanf("%d", &m);
+    if (m < 0 || m >= Gptr->n)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
     if (ERROR != RemoveArc_M(Gptr, k, m))
         printf("删除弧成功!\n");
     else
-        printf("输入有误,请重试!\n");
+        printf("请不要删除不存在的弧!\n");
 }
 
 void test_RemoveArc_AL(ALGraph *Gptr)
@@ -404,10 +419,15 @@ void test_RemoveArc_AL(ALGraph *Gptr)
     printf("请输入要删除弧的另一个顶点m: ");
     fflush(stdin); // 清空输入缓冲区
     scanf("%d", &m);
+    if (m < 0 || m >= Gptr->n)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
     if (ERROR != RemoveArc_AL(Gptr, k, m))
         printf("删除弧成功!\n");
     else
-        printf("输入有误,请重试!\n");
+        printf("请不要删除不存在的弧!\n");
 }
 
 void test_DFS_M(MGraph *Gptr)

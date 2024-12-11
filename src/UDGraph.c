@@ -112,7 +112,7 @@ int LocateVex_M(MGraph G, VexType v)
 Status GetVex_M(MGraph G, int k, VexType *w)
 {
     if (k < 0 || k >= G.n)
-        return -1;   // k顶点不存在
+        return -1;  // k顶点不存在
     *w = G.vexs[k]; // 将k顶点的值赋给w
     return OK;
 }
@@ -120,7 +120,7 @@ Status GetVex_M(MGraph G, int k, VexType *w)
 Status PutVex_M(MGraph G, int k, VexType v)
 {
     if (k < 0 || k >= G.n)
-        return -1;  // k顶点不存在
+        return -1; // k顶点不存在
     G.vexs[k] = v; // 将v赋给k顶点
     return OK;
 }
@@ -172,9 +172,16 @@ Status AddArc_M(MGraph *G, int k, int m, int info)
 Status RemoveArc_M(MGraph *G, int k, int m)
 {
     if (k < 0 || k >= G->n || m < 0 || m >= G->n)
-        return ERROR;                  // k顶点或m顶点不存在
-    G->arcs[k][m] = G->arcs[m][k] = 0; // 删除k顶点与m顶点之间的边或弧
-    G->e--;                            // 边数减1
+        return ERROR;                                     // k顶点或m顶点不存在
+    if (G->kind == UDG && G->arcs[k][m] && G->arcs[m][k]) // 无向图
+    {
+        G->arcs[k][m] = G->arcs[m][k] = 0; // 删除k顶点与m顶点之间的边或弧
+        G->e--;                            // 边数减1
+    }
+    else
+    {
+        return ERROR; // 无向网
+    }
     return OK;
 }
 
@@ -457,19 +464,23 @@ Status AddArc_AL(ALGraph *G, int k, int m, int info)
 Status RemoveArc_AL(ALGraph *G, int k, int m)
 {
     AdjVexNodeP p, q;
+    Status removeFlag = ERROR;
     if (k < 0 || k >= G->n || m < 0 || m >= G->n) // k顶点或m顶点不存在
         return ERROR;
     p = G->vexs[k].firstArc;
     q = NULL;
     while (p != NULL) // 判断弧是否已存在
     {
-        if (m == p->adjvex)
+        if (m == p->adjvex) // 找到目标弧并删除
         {
             if (q == NULL)
                 G->vexs[k].firstArc = p->nextArc;
             else
                 q->nextArc = p->nextArc;
             free(p);
+            G->e--; // 边数减1
+            removeFlag = OK;
+            break;
         }
         q = p;
         p = p->nextArc;
@@ -492,8 +503,7 @@ Status RemoveArc_AL(ALGraph *G, int k, int m)
             p = p->nextArc;
         }
     }
-    G->e--;
-    return OK;
+    return removeFlag;
 }
 
 Status DFS_AL(ALGraph G, int k, Status (*visit)(int))
