@@ -111,7 +111,7 @@ Status GetVex_AL(ALGraph G, int k, VexType *w);
 Status PutVex_AL(ALGraph G, int k, VexType w);
 // 求图G中k顶点的第一个邻接顶点的位序,并使p指向求得顶点,若不存在则返回-1
 int FirstAdjVex_AL(ALGraph G, int k, AdjVexNodeP *p);
-//  求图G中k顶点相对于k顶点的下一个邻接顶点的位序,并使p指向求得顶点,若不存在则返回-1
+// 在图G中k顶点的邻接链表，令p指向p的下一个顶点,若不存在则返回-1
 int NextAdjVex_AL(ALGraph G, int k, AdjVexNodeP *p);
 // 在图G中增加k顶点到m顶点的边或弧,若为带权图,info为权值,否则为1
 Status AddArc_AL(ALGraph *G, int k, int m, int info);
