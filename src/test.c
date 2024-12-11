@@ -6,9 +6,9 @@ void test_M(MGraph *Gptr)
     do
     {
         system("cls");
-        printf("---------------------------------------------\n");
+        printf("--------------------------------------------------------------\n");
         printMGraph(*Gptr);
-        printf("---------------------------------------------\n");
+        printf("--------------------------------------------------------------\n");
         displayTestMenu_M();
         select = -1;
         fflush(stdin); // 清空输入缓冲区
@@ -64,9 +64,9 @@ void test_AL(ALGraph *Gptr)
     do
     {
         system("cls");
-        printf("---------------------------------------------\n");
+        printf("--------------------------------------------------------------\n");
         printALGraph(*Gptr);
-        printf("---------------------------------------------\n");
+        printf("--------------------------------------------------------------\n");
         displayTestMenu_AL();
         select = -1;
         fflush(stdin); // 清空输入缓冲区
@@ -141,7 +141,7 @@ void displayTestMenu_M()
     printf("8. 深度优先遍历图G DFSTraverse_M()\n");
     printf("9. 广度优先遍历图G BFSTraverse_M()\n");
     printf("0. 返回\n");
-    printf("---------------------------------------------\n");
+    printf("--------------------------------------------------------------\n");
     printf("请输入你的选择: ");
 }
 
@@ -151,13 +151,13 @@ void displayTestMenu_AL()
     printf("2. 取图G的k顶点的值到w GetVex_AL()\n");
     printf("3. 对图G的k顶点赋值w PutVex_AL()\n");
     printf("4. 求图G中k顶点的第一个邻接顶点的位序 FirstAdjVex_AL()\n");
-    printf("5. 求图G中k顶点相对于k顶点的下一个邻接顶点的位序 NextAdjVex_AL()\n");
+    printf("5. 求图G中k顶点相对于第一个邻接顶点的下一个邻接顶点的位序 NextAdjVex_AL()\n");
     printf("6. 在图G中增加k顶点到m顶点的边或弧 AddArc_AL()\n");
     printf("7. 在图G中删除k顶点到m顶点的边或弧 RemoveArc_AL()\n");
     printf("8. 深度优先遍历图G DFSTraverse_AL()\n");
     printf("9. 广度优先遍历图G BFSTraverse_AL()\n");
     printf("0. 返回\n");
-    printf("---------------------------------------------\n");
+    printf("--------------------------------------------------------------\n");
     printf("请输入你的选择: ");
 }
 
@@ -292,10 +292,46 @@ void test_FirstAdjVex_AL(ALGraph *Gptr)
 
 void test_NextAdjVex_M(MGraph *Gptr)
 {
+    int k = -1, m = -1, i;
+    printf("请输入顶点k: ");
+    scanf("%d", &k);
+    if (k < 0 || k >= Gptr->n)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
+    fflush(stdin); // 清空输入缓冲区
+    printf("请输入顶点m: ");
+    scanf("%d", &m);
+    if (m < 0 || m >= Gptr->n)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
+    i = NextAdjVex_M(*Gptr, k, m);
+    if (i < 0)
+        printf("顶点%d相对于%d顶点没有邻接顶点!\n", k, m);
+    else
+        printf("顶点%d相对于%d顶点的下一个邻接顶点是%d\n", k, m, i);
 }
 
 void test_NextAdjVex_AL(ALGraph *Gptr)
 {
+    int k = -1, i, j;
+    AdjVexNodeP p;
+    printf("请输入顶点k: ");
+    scanf("%d", &k);
+    if (k < 0 || k >= Gptr->n)
+    {
+        printf("输入有误,请重试!\n");
+        return;
+    }
+    i = FirstAdjVex_AL(*Gptr, k, &p);
+    j = NextAdjVex_AL(*Gptr, k, &p);
+    if (i < 0)
+        printf("顶点%d没有邻接顶点!\n", k);
+    else
+        printf("顶点%d的第一个邻接顶点%d的下一个邻接顶点是%d\n", k, i, j);
 }
 
 void test_AddArc_M(MGraph *Gptr)
