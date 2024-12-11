@@ -156,7 +156,9 @@ int NextAdjVex_M(MGraph G, int k, int m)
 Status AddArc_M(MGraph *G, int k, int m, int info)
 {
     if (k < 0 || k >= G->n || m < 0 || m >= G->n)
-        return ERROR;   // k顶点或m顶点不存在
+        return ERROR;                                    // k顶点或m顶点不存在
+    if (G->arcs[k][m] == 0 || G->arcs[k][m] == INFINITY) // 判断k和m之间是否存在弧
+        return ERROR;
     if (G->kind == UDG) // 无向图
     {
         G->arcs[k][m] = G->arcs[m][k] = 1;
@@ -413,31 +415,14 @@ int NextAdjVex_AL(ALGraph G, int k, AdjVexNodeP *p)
 
 Status AddArc_AL(ALGraph *G, int k, int m, int info)
 {
-    AdjVexNodeP p, q;
+    AdjVexNodeP p;
     if (k < 0 || k >= G->n || m < 0 || m >= G->n) // k顶点或m顶点不存在
         return ERROR;
     p = G->vexs[k].firstArc;
-    q = NULL;
     while (p != NULL) // 判断弧是否已存在
     {
-        if (m == p->adjvex)
-        {
-            if (G->kind == UDN)
-            {
-                p->info = info;
-                p = G->vexs[m].firstArc;
-                q = NULL;
-                while (p != NULL) // 无向图弧的info值相同
-                {
-                    if (k == p->adjvex)
-                        p->info = info;
-                    q = p;
-                    p = p->nextArc;
-                }
-            }
-            return OK;
-        }
-        q = p;
+        if (m == p->adjvex) // 弧已存在
+            return ERROR;
         p = p->nextArc;
     }
     p = (AdjVexNodeP)malloc(sizeof(AdjVexNode));
