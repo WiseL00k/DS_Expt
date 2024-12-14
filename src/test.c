@@ -122,25 +122,25 @@ void displayMainMenu()
     printf("------------------------------------------\n");
     printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
     printf("------------------------------------------\n");
-    printf("1. 测试邻接矩阵\n");
-    printf("2. 测试邻接表\n");
-    printf("0. 退出\n");
+    printf("\t1. 测试邻接矩阵\n");
+    printf("\t2. 测试邻接表\n");
+    printf("\t0. 退出\n");
     printf("------------------------------------------\n");
     printf("请输入你的选择: ");
 }
 
 void displayTestMenu_M()
 {
-    printf("1. 查找顶点v在图G中的位序 LocateVex_M()\n");
-    printf("2. 取图G的k顶点的值到w GetVex_M()\n");
-    printf("3. 对图G的k顶点赋值w PutVex_M()\n");
-    printf("4. 求图G中k顶点的第一个邻接顶点的位序 FirstAdjVex_M()\n");
-    printf("5. 求图G中k顶点相对于m顶点的下一个邻接顶点的位序 NextAdjVex_M()\n");
-    printf("6. 在图G中增加k顶点到m顶点的边或弧 AddArc_M()\n");
-    printf("7. 在图G中删除k顶点到m顶点的边或弧 RemoveArc_M()\n");
-    printf("8. 深度优先遍历图G DFSTraverse_M()\n");
-    printf("9. 广度优先遍历图G BFSTraverse_M()\n");
-    printf("0. 返回\n");
+    printf("\t1. 查找顶点v在图G中的位序 LocateVex_M()\n");
+    printf("\t2. 取图G的k顶点的值到w GetVex_M()\n");
+    printf("\t3. 对图G的k顶点赋值w PutVex_M()\n");
+    printf("\t4. 求图G中k顶点的第一个邻接顶点的位序 FirstAdjVex_M()\n");
+    printf("\t5. 求图G中k顶点相对于m顶点的下一个邻接顶点的位序 NextAdjVex_M()\n");
+    printf("\t6. 在图G中增加k顶点到m顶点的边或弧 AddArc_M()\n");
+    printf("\t7. 在图G中删除k顶点到m顶点的边或弧 RemoveArc_M()\n");
+    printf("\t8. 深度优先遍历图G DFSTraverse_M()\n");
+    printf("\t9. 广度优先遍历图G BFSTraverse_M()\n");
+    printf("\t0. 返回\n");
     printf("--------------------------------------------------------------\n");
     printf("请输入你的选择: ");
 }
