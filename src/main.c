@@ -6,8 +6,8 @@
 int main(void)
 {
     int select;
-    VexType vexs[5] = {'A', 'B', 'C', 'D', 'E'};
-    ArcInfo arcs[5] = {{'A', 'C', 1}, {'A', 'D', 1}, {'C', 'E', 1}, {'C', 'D', 1}, {'B', 'D', 1}};
+    VexType vexs[10] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};
+    ArcInfo arcs[10] = {{'A', 'C', 1}, {'A', 'D', 1}, {'C', 'E', 1}, {'C', 'D', 1}, {'B', 'D', 1}, {'G', 'H', 1}, {'G', 'I', 1}, {'H', 'I', 1}, {'H', 'F', 1}, {'I', 'J', 1}};
     do
     {
         system("cls"); // 清屏
@@ -20,19 +20,19 @@ int main(void)
         case ADJMATRIX:
         {
             MGraph G;
-            CreateGraph_M(&G, UDG, vexs, 5, arcs, 5);
+            CreateGraph_M(&G, UDG, vexs, 10, arcs, 10);
             test_M(&G);
             break;
         }
         case ADJLIST:
         {
             ALGraph G;
-            CreateGraph_AL(&G, UDG, vexs, 5, arcs, 5);
+            CreateGraph_AL(&G, UDG, vexs, 10, arcs, 10);
             test_AL(&G);
             break;
         }
         case EXIT:
-            printf("退出程序\n");
+            printf("已退出程序!\n谢谢使用!\n");
             break;
         default:
             printf("输入错误,请重试!\n");
