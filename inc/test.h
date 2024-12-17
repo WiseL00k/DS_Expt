@@ -6,10 +6,15 @@
 #define EXIT 0
 #define ADJMATRIX 1
 #define ADJLIST 2
+#define DEFAULT_DATA 1
+#define USER_DATA 2
+#define TEST_UDGRAPH 3
 
 void test_M(MGraph *Gptr);
 void test_AL(ALGraph *Gptr);
+void mainMenu(VexType *vexs, int n, ArcInfo *arcs, int e);
 void displayMainMenu();
+void displayInputDataMenu();
 void displayTestMenu_M();
 void displayTestMenu_AL();
 

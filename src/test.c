@@ -116,6 +116,45 @@ void test_AL(ALGraph *Gptr)
     DestroyGraph_AL(Gptr);
 }
 
+void mainMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
+{
+    int select = -1;
+    do
+    {
+        system("cls"); // 清屏
+        displayMainMenu();
+        fflush(stdin); // 清空输入缓冲区
+        scanf("%d", &select);
+        switch (select)
+        {
+        // 测试邻接矩阵存储结构
+        case ADJMATRIX:
+        {
+            MGraph G;
+            CreateGraph_M(&G, UDG, vexs, n, arcs, e);
+            test_M(&G);
+            break;
+        }
+        // 测试邻接表存储结构
+        case ADJLIST:
+        {
+            ALGraph G;
+            CreateGraph_AL(&G, UDG, vexs, n, arcs, e);
+            test_AL(&G);
+            break;
+        }
+        case EXIT:
+            break;
+        // 输入错误
+        default:
+            printf("输入错误,请重试!\n");
+            puts("按任意键以继续...");
+            system("pause");
+            break;
+        }
+    } while (select != EXIT);
+}
+
 void displayMainMenu()
 {
     printf("数据结构实验无向图测试\n");
@@ -124,7 +163,23 @@ void displayMainMenu()
     printf("------------------------------------------\n");
     printf("\t1. 测试邻接矩阵\n");
     printf("\t2. 测试邻接表\n");
+    printf("\t0. 返回\n");
+    printf("------------------------------------------\n");
+    printf("请输入你的选择: ");
+}
+
+void displayInputDataMenu()
+{
+    printf("数据结构实验无向图测试\n");
+    printf("------------------------------------------\n");
+    printf("姓名:XXX 班级:XX计科X班 学号:XXXXXXXXXX\n");
+    printf("------------------------------------------\n");
+    printf("\t1. 使用默认数据\n");
+    printf("\t2. 用户自行输入\n");
+    printf("\t3. 开始测试\n");
     printf("\t0. 退出\n");
+    printf("------------------------------------------\n");
+    printf("在选择好测试数据后,便可开始测试\n");
     printf("------------------------------------------\n");
     printf("请输入你的选择: ");
 }
