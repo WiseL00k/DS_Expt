@@ -2,7 +2,7 @@
 
 void test_M(MGraph *Gptr)
 {
-    int select;
+    int select = -1;
     do
     {
         system("cls");
@@ -60,7 +60,7 @@ void test_M(MGraph *Gptr)
 
 void test_AL(ALGraph *Gptr)
 {
-    int select;
+    int select = -1;
     do
     {
         system("cls");
@@ -121,6 +121,7 @@ void mainMenu(VexType *vexs, int n, ArcInfo *arcs, int e)
     int select = -1;
     do
     {
+        select = -1;
         system("cls"); // 清屏
         displayMainMenu();
         fflush(stdin); // 清空输入缓冲区
