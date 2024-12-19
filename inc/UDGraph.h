@@ -11,7 +11,7 @@
 #define UNVISITED 0
 #define VISITED 1
 #define INFINITY MAXINT
-#define MAXINT 0xFFFFFFFF
+#define MAXINT 0x0FFFFFFF
 
 typedef char VexType;
 typedef struct
