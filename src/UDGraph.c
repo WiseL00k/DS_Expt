@@ -156,8 +156,8 @@ int NextAdjVex_M(MGraph G, int k, int m)
 Status AddArc_M(MGraph *G, int k, int m, int info)
 {
     if (k < 0 || k >= G->n || m < 0 || m >= G->n)
-        return ERROR;                                    // k顶点或m顶点不存在
-    if (G->arcs[k][m] == 0 || G->arcs[k][m] == INFINITY) // 判断k和m之间是否存在弧
+        return ERROR; // k顶点或m顶点不存在
+    if ((UDG == G->kind || DG == G->kind) && info != 1)
         return ERROR;
     if (G->kind == UDG) // 无向图
     {
@@ -275,7 +275,9 @@ Status SetArc_M(MGraph *G, VexType v, VexType w, int info)
     int k = LocateVex_M(*G, v);
     int m = LocateVex_M(*G, w);
     if (k < 0 || k >= G->n || m < 0 || m >= G->n)
-        return ERROR; // k顶点或m顶点不存在
+        return ERROR;                                    // k顶点或m顶点不存在
+    if (G->arcs[k][m] == 0 || G->arcs[k][m] == INFINITY) // 判断k和m之间是否存在弧
+        return ERROR;
     if (G->kind == UDG)
         G->arcs[k][m] = G->arcs[m][k] = 1;
     else if (G->kind == UDN)
