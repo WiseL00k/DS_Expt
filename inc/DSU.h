@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 #include <stdio.h>
+#include "Status.h" // 状态码定义
 
 #define USE_WUR_UNION // 采用加权合并原则
 
@@ -22,15 +23,6 @@
 #define UnionMFSet(set, i, j) UnionMFSet_Default(set, i, j)
 #endif
 #endif
-
-typedef enum
-{
-    ERROR = -1,
-    FALSE,
-    TRUE,
-    OK,
-    OVERFLOW,
-} Status; // 状态码
 
 typedef struct // 并查集
 {
